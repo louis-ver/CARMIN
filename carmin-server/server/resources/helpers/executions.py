@@ -78,6 +78,8 @@ def get_pipeline(pipeline_identifier: str) -> Pipeline:
     ]
     for pipeline in all_pipelines:
         path = os.path.join(pipeline_directory, pipeline)
+        if not os.path.isfile(path):
+            continue
         with open(path) as f:
             pipeline = json.load(f)
             if pipeline["identifier"] == pipeline_identifier:
