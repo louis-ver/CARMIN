@@ -1,5 +1,7 @@
 import os
+import shutil
 import json
+import boutiques
 from typing import Dict
 from server import app
 from server.database.models.user import User
@@ -35,6 +37,10 @@ def create_execution_directory(execution: ExecutionDB,
 
     path, error = create_directory(execution_dir_absolute_path)
     return execution_dir_absolute_path, error
+
+
+def delete_execution_directory(execution_dir_path: str):
+    shutil.rmtree(execution_dir_path, ignore_errors=True)
 
 
 def get_execution_dir(username: str, execution_identifier: str) -> str:
@@ -134,6 +140,7 @@ def validate_request_model(model: dict,
         error_code_and_message = ErrorCodeAndMessageFormatter(
             INVALID_INPUT_FILE, error)
         return False, error_code_and_message
+
     return True, None
 
 

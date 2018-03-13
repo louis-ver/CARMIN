@@ -12,6 +12,7 @@ db = SQLAlchemy(app)
 
 from server.database.models.user import User
 from server.database.models.execution import Execution
+from server.database.models.execution_process import ExecutionProcess
 db.create_all()
 
 from server.startup_validation import start_up

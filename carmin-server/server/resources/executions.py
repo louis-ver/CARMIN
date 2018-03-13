@@ -7,7 +7,8 @@ from server.common.error_codes_and_messages import (
     ErrorCodeAndMessageMarshaller)
 from server.resources.helpers.executions import (
     write_inputs_to_file, create_execution_directory, get_execution_as_model,
-    input_files_exist, validate_request_model, filter_executions)
+    input_files_exist, validate_request_model, filter_executions,
+    delete_execution_directory)
 from server.database.queries.executions import (get_all_executions_for_user,
                                                 get_execution)
 from .models.execution import ExecutionSchema
@@ -63,6 +64,7 @@ class Executions(Resource):
 
             error = write_inputs_to_file(model, path)
             if error:
+                delete_execution_directory(path)
                 db_session.rollback()
                 return error
 
